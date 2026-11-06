@@ -1,0 +1,5 @@
+cryptography>=42
+z3-solver>=4.12.2
+Pillow>=10
+reportlab>=4
+pypdf>=4
