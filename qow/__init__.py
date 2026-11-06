@@ -1,0 +1,1 @@
+"""iNNOVULIS Quantum of Work: local, formal, evidence-bound receipts."""
