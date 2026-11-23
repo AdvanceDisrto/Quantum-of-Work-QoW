@@ -1,0 +1,35 @@
+name: QoW QoP unified Rust acceptance
+on:
+  push:
+    paths:
+      - 'integrations/quantum_work_process/**'
+      - '.github/workflows/qow-qop-unified.yml'
+  pull_request:
+    paths:
+      - 'integrations/quantum_work_process/**'
+      - '.github/workflows/qow-qop-unified.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  software-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: integrations/quantum_work_process
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Format source then build and test
+        run: |
+          cargo fmt --all
+          bash run_qow_qop.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qow-qop-cih-pending-receipts
+          path: integrations/quantum_work_process/build_qow_qop/
+          if-no-files-found: ignore
